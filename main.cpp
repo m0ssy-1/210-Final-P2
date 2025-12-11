@@ -2,6 +2,7 @@
 #include <string>
 #include <cstdlib>
 #include <ctime>
+#include <deque>
 
 using namespace std;
 
@@ -88,16 +89,38 @@ int main() {
     };
     const int DRINK_COUNT = sizeof(DRINKS) / sizeof(DRINKS[0]);
 
-    Node* head = nullptr;
-    Node* tail = nullptr;
+    const string MUFFINS[] = {
+        //muffins from LLM
+        "Blueberry Muffin",
+        "Chocolate Chip Muffin",
+        "Banana Nut Muffin",
+        "Lemon Poppy Seed Muffin",
+        "Cranberry Orange Muffin"
+    };
+    const int MUFFIN_COUNT = sizeof(MUFFINS) / sizeof(MUFFINS[0]);
 
-    cout << "Initializing queue with 3 customers...\n";
+    Node* coffeeHead = nullptr;
+    Node* coffeeTail = nullptr;
+
+    deque<MuffinCustomer> muddinQueue;
+
+    cout << "Initializing coffee queue with 3 customers...\n";
     for (int i = 0; i < 3; i++) {
-        enqueueRandomCustomer(head, tail, NAMES, NAME_COUNT, DRINKS, DRINK_COUNT);
+        enqueueRandomCoffeeCustomer(coffeeHead, coffeeTail, NAMES, NAME_COUNT, DRINKS, DRINK_COUNT);
     }
 
-    cout << "Initial queue:\n";
-    printQueue(head);
+    cout << "Initializing muffin queue with 3 customers...\n";
+    for (int i = 0; i < 3; i++) {
+        enqueueRandomMuffinCustomer(muffinQueue, NAMES, NAME_COUNT, MUFFINS, MUFFIN_COUNT);
+    }
+
+
+    cout << "\nInitial queues:\n";
+    cout << "----------------------\n";
+    printCoffeeQueue(coffeeHead);
+    cout << "----------------------\n";
+    printMuffinQueue(muffinQueue);
+    cout << "=====================\n";
 
     //10 rounds
     const int ROUNDS = 10;
