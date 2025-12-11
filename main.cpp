@@ -102,7 +102,7 @@ int main() {
     Node* coffeeHead = nullptr;
     Node* coffeeTail = nullptr;
 
-    deque<MuffinCustomer> muddinQueue;
+    deque<MuffinCustomer> muffinQueue;
 
     cout << "Initializing coffee queue with 3 customers...\n";
     for (int i = 0; i < 3; i++) {
@@ -124,28 +124,37 @@ int main() {
 
     //10 rounds
     const int ROUNDS = 10;
-    for (int round = 1; round <= ROUNDS; ++round) {
-        cout << "---------------------\n";
-        cout << "Round " << round << ":\n";
+    for (int round = 1; round <= 10; ++round) {
+        cout << "\n======== Round " << round << "========\n";
 
-        printQueue(head);
+    cout << "\n[Coffee Booth]\n";
+    printCoffeeQueue(coffeeHead);
 
-        if (!serveCustomer(head, tail)) {
-            cout << "No one served this round, queue empty.\n";
+        if (!serveCoffeeCustomer(coffeeHead, coffeeTail)) {
+            cout << "No coffee customer served this round, queue empty.\n";
         }
         //50% to join q
-        int joinChance = rand() % 2;
-        if (joinChance == 0) {
-            enqueueRandomCustomer(head, tail, NAMES, NAME_COUNT, DRINKS, DRINK_COUNT);
-            cout << "Customer joined the queue: " << tail->name << " - " << tail->drink << '\n';
+        if (rand() % 2 == 0) {
+            enqueueRandomCoffeeCustomer(coffeeHead, coffeeTail, NAMES, NAME_COUNT, DRINKS, DRINK_COUNT);
+            cout << "New coffee customer joined.\n";
         } else {
-            cout << "No new customers this round.\n";
+            cout << "No new coffe customer this roun.\n";
         }
 
-        cout << "Queue at end of round " << round << ":\n";
-        printQueue(head);
-        cout << "\n";
-    }
+        cout << "Coffee queue at end of round " << round << ":\n";
+        printCoffeeQueue(coffeeHead);
+
+        cout << "\n[Muffin Booth]\n";
+        printMuffinQueue(muffinQueue);
+
+        if (!serveMuffinCustomer(muffinQueue)) {
+            cout << "No muffin customer served this round, queue empty.\n";
+        }
+
+        if (rand() % 2 == 0) {
+            enqueueRandomMuffinCustomer(muffinQueue, NAMES, NAME_COUNT, MUFFINS, MUFFIN_COUNT);
+            cout << "New muffin customer joined the"
+        }
     
     return 0;
 }
