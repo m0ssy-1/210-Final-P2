@@ -99,8 +99,10 @@ int main() {
     cout << "Initial queue:\n";
     printQueue(head);
 
+    //10 rounds
     const int ROUNDS = 10;
     for (int round = 1; round <= ROUNDS; ++round) {
+        cout << "---------------------\n";
         cout << "Round " << round << ":\n";
 
         printQueue(head);
@@ -112,16 +114,15 @@ int main() {
         int joinChance = rand() % 2;
         if (joinChance == 0) {
             enqueueRandomCustomer(head, tail, NAMES, NAME_COUNT, DRINKS, DRINK_COUNT);
+            cout << "Customer joined the queue: " << tail->name << " - " << tail->drink << '\n';
+        } else {
+            cout << "No new customers this round.\n";
         }
-    }
 
-    cout << "Serving customers:\n";
-    while (serveCustomer(head, tail)) {
-        //serves until empty
+        cout << "Queue at end of round " << round << ":\n";
+        printQueue(head);
+        cout << "\n";
     }
-
-    cout << "Queue after serving:\n";
-    printQueue(head);
     
     return 0;
 }
