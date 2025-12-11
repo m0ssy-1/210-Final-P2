@@ -14,8 +14,26 @@ int main() {
 
     const string NAMES[] = {
         //names from LLM
-      "Alex", "Jordan", "Taylor", "Morgan", "Riley",
+     "Alex", "Jordan", "Taylor", "Morgan", "Riley",
      "Casey", "Sam", "Jamie", "Drew", "Quinn"  
     };
-    const int NAME
+    const int NAME_COUNT = sizeof(NAMES) / sizeof(NAMES[0]);
+
+    const string DRINKS[] = {
+        //drinks from LLM
+        "Latte", "Cappuccino", "Cold Brew", "Mocha", "Espresso",
+        "Americano", "Chai Latte", "Matcha Latte", "Iced Coffee", "Hot Chocolate"   
+    };
+    const int DRINK_COUNT = sizeof(DRINKS) / sizeof(DRINKS[0]);
+
+    node* head = nullptr;
+    node* tail = nullptr;
+
+    cout << "Coffee booth queue\n";
+    for (int i = 0; i < 5; i++) {
+        enqueueRandomCustomer(head, tail, NAMES, NAMES_COUNT, DRINKS, DRINK_COUNT);
+    }
+
+    cout << "Initial queue:\n";
+    printQueue(head);
 }
