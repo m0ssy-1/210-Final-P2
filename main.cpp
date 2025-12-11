@@ -22,7 +22,7 @@ void enqueueRandomCustomer(Node*& head, Node*& tail, const string names[], int n
 
     Node* newNode = new Node;
     newNode->name = names[nameIndex];
-    newNode->drink = drinks[drinksIndex];
+    newNode->drink = drinks[drinkIndex];
     newNode->next = nullptr;
 
     if (tail == nullptr) {
@@ -91,7 +91,7 @@ int main() {
 
     cout << "Coffee booth queue\n";
     for (int i = 0; i < 5; i++) {
-        enqueueRandomCustomer(head, tail, NAMES, NAMES_COUNT, DRINKS, DRINK_COUNT);
+        enqueueRandomCustomer(head, tail, NAMES, NAME_COUNT, DRINKS, DRINK_COUNT);
     }
 
     cout << "Initial queue:\n";
