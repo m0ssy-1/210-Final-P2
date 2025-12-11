@@ -9,6 +9,22 @@ using namespace std;
 // The linked list's struct should be a node that contains the customer's name and drink order. 
 // Create data arrays with names and drink orders from which to randomly create customer data. 
 // You may use an LLM for creating these data sets. 
+
+struct node {
+    string name;
+    string drink;
+    node* next;
+};
+
+void enqueueRandomCustomer(node*& head, node*& tail, const string names[], int nameCount, const string drinks[], int drinkCount) {
+    int nameIndex = rand() % nameCount;
+    int drinkIndex = rand() % drinkCount;
+    
+}
+
+
+
+
 int main() {
     srand(static_cast<unsigned int>(time(nullptr)));
 
@@ -36,4 +52,14 @@ int main() {
 
     cout << "Initial queue:\n";
     printQueue(head);
+
+    cout << "Serving customers:\n";
+    while (serveCustomer(head, tail)) {
+        //serves until empty
+    }
+
+    cout << "Queue after serving:\n";
+    printQueue(head);
+    
+    return 0;
 }
