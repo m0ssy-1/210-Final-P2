@@ -22,7 +22,7 @@ void enqueueRandomCustomer(Node*& head, Node*& tail, const string names[], int n
 
     Node* newNode = new Node;
     newNode->name = names[nameIndex];
-    newNode->dirnk = drinks[drinksIndex];
+    newNode->drink = drinks[drinksIndex];
     newNode->next = nullptr;
 
     if (tail == nullptr) {
@@ -44,10 +44,28 @@ void printQueue(Node* head){
     int position = 1;
     Node* current = head;
     while (current != nullptr) {
-        cout << position << " " << current->name << " " << current->
+        cout << position << " " << current->name << " " << current->drink << '\n';
+        current = current->next;
+        position++;
     }
 }
 
+bool serveCustomer(Node*& head, Node*& tail) {
+    if (head == nullptr) {
+        return false;
+    }
+
+    Node* temp = head;
+    cout << "Serving: " << head->name << " " << head->drink << '\n';
+
+    head = head->next;
+    if (head == nullptr) {
+        tail = nullptr;
+    }
+
+    delete temp;
+    return true;
+}
 
 
 
