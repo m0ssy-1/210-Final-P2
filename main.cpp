@@ -5,11 +5,6 @@
 
 using namespace std;
 
-//Milestone 1: Using a struct, code a coffee booth queue simulation that uses a linked list as its core data structure. 
-// The linked list's struct should be a node that contains the customer's name and drink order. 
-// Create data arrays with names and drink orders from which to randomly create customer data. 
-// You may use an LLM for creating these data sets. 
-
 struct Node {
     string name;
     string drink;
@@ -67,6 +62,13 @@ bool serveCustomer(Node*& head, Node*& tail) {
     return true;
 }
 
+//Milestone 2: Run the simulation for 10 rounds. 
+// Initialize the queue with 3 customers. 
+// For any given round, there's a 50% probability that someone will join the queue. 
+// The customer at the head of the queue is always served in each round. 
+// If the queue is currently empty, no customer is served, but there is still a 50% probability that someone will join the queue.
+
+
 
 
 int main() {
@@ -89,13 +91,29 @@ int main() {
     Node* head = nullptr;
     Node* tail = nullptr;
 
-    cout << "Coffee booth queue\n";
-    for (int i = 0; i < 5; i++) {
+    cout << "Initializing queue with 3 customers...\n";
+    for (int i = 0; i < 3; i++) {
         enqueueRandomCustomer(head, tail, NAMES, NAME_COUNT, DRINKS, DRINK_COUNT);
     }
 
     cout << "Initial queue:\n";
     printQueue(head);
+
+    const int ROUNDS = 10;
+    for (int round = 1; round <= ROUNDS; ++round) {
+        cout << "Round " << round << ":\n";
+
+        printQueue(head);
+
+        if (!serveCustomer(head, tail)) {
+            cout << "No one served this round, queue empty.\n";
+        }
+        //50% to join q
+        int joinChance = rand() % 2;
+        if (joinChance == 0) {
+            enqueueRandomCustomer(head, tail, NAMES, NAME_COUNT, DRINKS, DRINK_COUNT);
+        }
+    }
 
     cout << "Serving customers:\n";
     while (serveCustomer(head, tail)) {
