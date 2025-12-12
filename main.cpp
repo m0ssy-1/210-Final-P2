@@ -4,6 +4,7 @@
 #include <ctime>
 #include <deque>
 #include <vector>
+#include <queue>
 
 using namespace std;
 
@@ -178,12 +179,22 @@ int main() {
 
     const int BRACELET_COUNT = sizeof(BRACELETS) / sizeof(BRACELETS[0]);
 
+    const string COOKIES[] = {
+        //from llm
+    "Chocolate Chip Cookie", "Oatmeal Raisin Cookie", "Snickerdoodle",
+    "Peanut Butter Cookie", "Sugar Cookie", "Double Chocolate Cookie",
+    "White Chocolate Macadamia Cookie", "Ginger Molasses Cookie"
+};
+const int COOKIE_COUNT = sizeof(COOKIES) / sizeof(COOKIES[0]);
+
     Node* coffeeHead = nullptr;
     Node* coffeeTail = nullptr;
 
     deque<MuffinCustomer> muffinQueue;
 
     vector<BraceletCustomer> BraceletQueue;
+
+    std::queue<std::pair<std::string, std::string>> cookieQueue;
 
     cout << "Initializing coffee queue with 3 customers...\n";
     for (int i = 0; i < 3; i++) {
@@ -200,6 +211,14 @@ int main() {
         enqueueRandombraceletCustomer(BraceletQueue, NAMES, NAME_COUNT, BRACELETS, BRACELET_COUNT);
     }
 
+    cout << "Initializing cookie queue with 3 customers...\n";
+    for (int i = 0; i < 3; ++i) {
+        string nm = NAMES[rand() % NAME_COUNT];
+        string ck = COOKIES[rand() % COOKIE_COUNT];
+        cookieQueue.push({nm, ck});
+    }
+
+
     cout << "\nInitial queues:\n";
     cout << "----------------------\n";
     printCoffeeQueue(coffeeHead);
@@ -208,6 +227,7 @@ int main() {
     cout << "=====================\n";
     printBraceletQueue(BraceletQueue);
     cout << "=====================\n\n";
+
 
 
     //10 rounds
@@ -266,8 +286,39 @@ int main() {
         printBraceletQueue(BraceletQueue);
         cout << "\n";
 
-        cout << "================\n\n";
-    }
+
+        cout << "[Cookie Booth]\n";
+        cout << "cookie booth queue:\n";
+        if (cookieQueue.empty()) {
+            cout << "QUEUE IS EMPTY\n";
+        } else {
+            std::queue<std::pair<std::string, std::string>> temp = cookieQueue;
+            int pos = 1;
+            while (!temp.empty()) {
+                cout << pos << " " << temp.front().first << " " << temp.front().second << "\n";
+                temp.pop();
+                pos++;
+            }
+        }
+
+        if (rand() % 2 == 0) {
+            string nm = NAMES[rand() % NAME_COUNT];
+            string ck = COOKIES[rand() % COOKIE_COUNT];
+            cookieQueue.push({nm, ck});
+            cout << "NEw cookie customer joined queue\n";
+        } else {
+            cout << "No new cookie customer this round.\n";
+        }
+
+        cout << "Cookie queue at end of round "<< round << ":\n";
+        cout << "Cookie booth queue:\n";
+        if (cookieQueue.empty()) {
+            cout << " QUEUE IS EMPTY\n";
+        } else {
+            std::queue<std::pair<std::string, std::string>> temp = cookieQueue;
+            int pos2 = 1;
+
+        }
     
     return 0;
 }
