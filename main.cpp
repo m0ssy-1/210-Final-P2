@@ -12,7 +12,7 @@ struct Node {
     Node* next;
 };
 
-void enqueueRandomCustomer(Node*& head, Node*& tail, const string names[], int nameCount, const string drinks[], int drinkCount) {
+void enqueueRandomCoffeeCustomer(Node*& head, Node*& tail, const string names[], int nameCount, const string drinks[], int drinkCount) {
     int nameIndex = rand() % nameCount;
     int drinkIndex = rand() % drinkCount;
 
@@ -30,7 +30,7 @@ void enqueueRandomCustomer(Node*& head, Node*& tail, const string names[], int n
     }
 }
 
-void printQueue(Node* head){
+void printCoffeeQueue(Node* head){
     cout << "Coffee booth queue:\n";
     if (head == nullptr) {
         cout << "QUEUE IS EMPTY\n";
@@ -46,7 +46,7 @@ void printQueue(Node* head){
     }
 }
 
-bool serveCustomer(Node*& head, Node*& tail) {
+bool serveCoffeeCustomer(Node*& head, Node*& tail) {
     if (head == nullptr) {
         return false;
     }
@@ -63,11 +63,44 @@ bool serveCustomer(Node*& head, Node*& tail) {
     return true;
 }
 
-//Milestone 2: Run the simulation for 10 rounds. 
-// Initialize the queue with 3 customers. 
-// For any given round, there's a 50% probability that someone will join the queue. 
-// The customer at the head of the queue is always served in each round. 
-// If the queue is currently empty, no customer is served, but there is still a 50% probability that someone will join the queue.
+struct MuffinCustomer {
+    string name;
+    string muffin;
+};
+
+void enqueueRandomMuffinCustomer(deque<MuffinCustomer>& q, const string names[], int nameCount, const string muffins[], int muffinCount) {
+    int nameIndex = rand() % nameCount;
+    int muffinIndex = rand() % muffinCount;
+
+    MuffinCustomer c;
+    c.name = names[nameIndex];
+    c.muffin = muffins[muffinIndex];
+
+    q.push_back(c);
+}
+
+void printMuffinQueue(const deque<MuffinCustomer>& q) {
+    cout << "Muffin booth Queue:\n";
+    if (q.empty()) {
+        cout << "QUEUE IS EMPTY\n";
+        return;
+    }
+
+    for (size_t i = 0; i < q.size(); ++i) {
+        cout << (i + 1) << " " << q[i].name << " " << q[i].muffin << '\n';
+    }
+}
+
+bool serveMuffinCustomer(deque<MuffinCustomer>& q) {
+    if (q.empty()) {
+        return false;
+    }
+
+    MuffinCustomer front = q.front();
+    cout << "Serving muffin customer: " << front.name << " " << front.muffin << '\n';
+    q.pop_front();
+    return true;
+}
 
 
 
@@ -153,8 +186,13 @@ int main() {
 
         if (rand() % 2 == 0) {
             enqueueRandomMuffinCustomer(muffinQueue, NAMES, NAME_COUNT, MUFFINS, MUFFIN_COUNT);
-            cout << "New muffin customer joined the"
+            cout << "New muffin customer joined the queue.\n";
+        } else {
+            cout << "No new muffin customer this round.\n";
         }
+        cout << "Muffin queue at end of round " << round << ":\n";
+        printMuffinQueue(muffinQueue);
+    }
     
     return 0;
 }
