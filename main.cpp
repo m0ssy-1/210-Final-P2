@@ -174,12 +174,16 @@ int main() {
         "Beaded Friendship Bracelet", "Charm Bracelet",
         "Braided String Bracelet", "Leather Wrap Bracelet",
         "Heart Charm Bracelet"
-    }
+    };
+
+    const int BRACELET_COUNT = sizeof(BRACELETS) / sizeof(BRACELETS[0]);
 
     Node* coffeeHead = nullptr;
     Node* coffeeTail = nullptr;
 
     deque<MuffinCustomer> muffinQueue;
+
+    vector<BraceletCustomer> BraceletQueue;
 
     cout << "Initializing coffee queue with 3 customers...\n";
     for (int i = 0; i < 3; i++) {
@@ -191,6 +195,10 @@ int main() {
         enqueueRandomMuffinCustomer(muffinQueue, NAMES, NAME_COUNT, MUFFINS, MUFFIN_COUNT);
     }
 
+    cout << "Initializing bracelet queue with 3 customers...\n";
+    for (int i = 0; i < 3; ++i) {
+        enqueueRandombraceletCustomer(BraceletQueue, NAMES, NAME_COUNT, BRACELETS, BRACELET_COUNT);
+    }
 
     cout << "\nInitial queues:\n";
     cout << "----------------------\n";
@@ -198,6 +206,9 @@ int main() {
     cout << "----------------------\n";
     printMuffinQueue(muffinQueue);
     cout << "=====================\n";
+    printBraceletQueue(BraceletQueue);
+    cout << "=====================\n\n";
+
 
     //10 rounds
     const int ROUNDS = 10;
@@ -236,6 +247,26 @@ int main() {
         }
         cout << "Muffin queue at end of round " << round << ":\n";
         printMuffinQueue(muffinQueue);
+
+        cout << "[Bracelet Booth]\n";
+        printBraceletQueue(BraceletQueue);
+        if (!BraceletQueue.empty()) {
+            serveBraceletCustomer(BraceletQueue);
+        } else {
+            cout << "No bracelet customer served this round, queue empty.\n";
+        }
+        if (rand() % 2 == 0) {
+           enqueueRandombraceletCustomer(BraceletQueue, NAMES, NAME_COUNT, BRACELETS, BRACELET_COUNT);
+           cout << "New bracelet customer joined the queue.\n";
+        } else {
+            cout << "No new bracelet customer this round.\n";
+        }
+
+        cout << "Bracelet queue at end of round " << round << ":\n";
+        printBraceletQueue(BraceletQueue);
+        cout << "\n";
+
+        cout << "================\n\n";
     }
     
     return 0;
