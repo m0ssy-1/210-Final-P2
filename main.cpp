@@ -3,6 +3,7 @@
 #include <cstdlib>
 #include <ctime>
 #include <deque>
+#include <vector>
 
 using namespace std;
 
@@ -102,8 +103,44 @@ bool serveMuffinCustomer(deque<MuffinCustomer>& q) {
     return true;
 }
 
+struct BraceletCustomer {
+    string name;
+    string bracelet;
+};
 
+void enqueueRandombraceletCustomer(vector<BraceletCustomer>& v, const string names[], int nameCount, const string bracelets[], int braceletCount) {
+    int nameIndex = rand() % nameCount;
+    int braceletIndex = rand() % braceletCount;
 
+    BraceletCustomer c;
+    c.name = names[nameIndex];
+    c.bracelet = bracelets[braceletIndex];
+
+    v.push_back(c);
+}
+
+void printBraceletQueue(const vector<BraceletCustomer>& v) {
+    cout << "Bracelet booth queue:\n";
+    if (v.empty()) {
+        cout << "QUEUE IS EMPTY\n";
+        return;
+    }
+    for (size_t i = 0; i < v.size(); ++i) {
+        cout << (i + 1) << " " << v[i].name << " " << v[i].bracelet << '\n';
+    }
+}
+
+bool serveBraceletCustomer(vector<BraceletCustomer>& v) {
+    if (v.empty()) {
+        return false;
+    }
+
+    BraceletCustomer front = v.front();
+    cout << "Serving bracelet customer: " << front.name << front.bracelet << '\n';
+
+    v.erase(v.begin());
+    return true;
+}
 
 int main() {
     srand(static_cast<unsigned int>(time(nullptr)));
@@ -131,6 +168,13 @@ int main() {
         "Cranberry Orange Muffin"
     };
     const int MUFFIN_COUNT = sizeof(MUFFINS) / sizeof(MUFFINS[0]);
+
+    const string BRACELETS[] = {
+        //from llm
+        "Beaded Friendship Bracelet", "Charm Bracelet",
+        "Braided String Bracelet", "Leather Wrap Bracelet",
+        "Heart Charm Bracelet"
+    }
 
     Node* coffeeHead = nullptr;
     Node* coffeeTail = nullptr;
